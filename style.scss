@@ -1,0 +1,128 @@
+$cubeWidth: 100px;
+$cubeHeight: 100px;
+$cubeDepth: $cubeHeight;
+
+body {
+  color: #333;
+  background: cornflowerblue;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial;
+}
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.space3d {
+	perspective: 1000px;
+	height: 100vh;
+	top: 40vh;
+	margin-left: 150px;
+	perspective-origin: 150px center;
+	//left: 300px;
+}
+
+._3dbox {
+	//display: inline-block;
+	transition: all 0.85s cubic-bezier(0.175,0.885,0.320,1.275);
+  	text-align: center;
+	position: absolute;
+	cursor: pointer;
+	transform-style: preserve-3d;
+}
+
+.f {
+	overflow: hidden;
+	position: absolute;
+	//border: 1px solid rgba(0,0,0,0.5);
+	background: darkorchid;
+	box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 0, 0, 0.3);
+  color: #333;
+  opacity: 0.8;
+}
+
+@mixin cube($size) {
+  .cube-#{$size} {
+  width: $size;
+  height: $size;
+  > .f {
+    width: $size;
+    height: $size;
+  }
+  > .f--front {
+    transform: translate3d(0, 0, $size / 2);
+    background: hsla(280,61%,31%,1);
+  }
+
+  > .f--top {
+    transform: rotateX(90deg) translate3d(0, 0, $size / 2);
+  }
+
+  > .f--bottom {
+  	transform: rotateX(-90deg) translate3d(0, 0, $size / 2);
+  }
+
+  > .f--left {
+    left: 50%;
+    margin-left: -$size / 2;
+    background: hsla(280,61%,41%,1);
+    transform: rotateY(-90deg) translate3d(0, 0, $size / 2);
+  }
+
+  > .f--right {
+    left: 50%;
+    margin-left: -$size / 2;
+      background: hsla(280,61%,41%,1);
+      transform: rotateY(90deg) translate3d(0, 0, $size / 2);
+  }
+
+  > .f--back {
+      transform: rotateY(180deg) translate3d(0, 0, $size / 2);
+  }
+  }
+}
+@include cube(100px);
+@include cube(30px);
+
+.cube-100px {
+  	top: 70vh;
+	transform: translateY(300px);
+	//animation: go-down 1s cubic-bezier(0.25, 0.1, 0.15, 1.0) forwards;
+	&:hover {
+		top: 69vh;
+	}
+}
+.cube-30px {
+  left: 38%;
+  //opacity: 0;
+  top: 50px;
+  transition: 0.3s ease 0.1s;
+  transform: translateZ(10px) rotateX(10deg) rotateY(120deg) rotateZ(-50deg);
+  //animation: rotate 3s cubic-bezier(0.25, 0.1, 0.15, 1.0) infinite;
+}
+.cube-100px.open .cube-30px {
+  top: -60px;
+  transform: translateZ(0px) rotateX(345deg) rotateY(345deg) rotateZ(345deg);
+  opacity: 1;
+}
+
+@keyframes rotate {
+	0% { transform: rotateX(0deg) rotateY(20deg); }
+	30% { transform: rotateX(10deg) rotateY(120deg) rotateZ(-50deg); }
+	70% { transform: rotateX(-170deg) rotateY(-20deg) rotateZ(150deg); }
+}
+@keyframes go-down {
+	to { transform: translateY(0); }
+}
+.scanlines {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.4));
+  background-size: 6px 6px;
+  pointer-events: none;
+  position: fixed;
+  z-index: 3;
+  left: 0; right: 0;
+  top: 0; bottom: 0;
+}
