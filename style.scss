@@ -5,7 +5,9 @@ $cubeDepth: $cubeHeight;
 body {
   color: #333;
   background: cornflowerblue;
-  padding: 20px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0px;
   text-align: center;
   font-family: Arial;
 }
@@ -19,10 +21,10 @@ canvas {
 .space3d {
 	perspective: 1000px;
 	height: 100vh;
-	top: 40vh;
-	margin-left: 150px;
-	perspective-origin: 150px center;
-	//left: 300px;
+  position: relative;
+	top: 75vh;
+	left: calc(50vw - 185px);
+	perspective-origin: 150px -150px;
 }
 
 ._3dbox {
@@ -88,11 +90,11 @@ canvas {
 @include cube(30px);
 
 .cube-100px {
-  	top: 70vh;
+  top: 0px;
 	transform: translateY(300px);
 	//animation: go-down 1s cubic-bezier(0.25, 0.1, 0.15, 1.0) forwards;
 	&:hover {
-		top: 69vh;
+		top: -7px;
 	}
 }
 .cube-30px {
