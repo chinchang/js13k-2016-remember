@@ -177,7 +177,11 @@ canvas {
   top: 0; bottom: 0;
 }
 .ui {
-  // display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   text-align: center ;
   // align-items: center;
   // flex-direction: column;
@@ -188,13 +192,18 @@ canvas {
   &.show {
     transform: translateY(0px);
   }
+  small {
+    transition: 0.25s ease;
+  }
 }
 .timer {
   transform: translateY(-100vh);
+  transition: 0.3s ease;
 }
 h1 {
   color: white;
   font-size: 17vw;
+  margin-bottom: 20px;
   transition: 0.3s ease 0.1s;
 }
 button {
@@ -216,12 +225,16 @@ button {
   h1 {
     font-size: 2em;
   }
+  small {
+    opacity: 0;
+  }
   .timer { transform: translateY(0); }
   button { transform: translateY(-100vh); }
 }
 .ui.finish {
   h1 {font-size: 4em;}
   .timer {
-    font-size: 3em;
+    font-size: 2em;
+    color: greenyellow;
   }
 }

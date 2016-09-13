@@ -54,6 +54,7 @@ function generateCubes() {
     })(cube);
 
     cube.addEventListener('click', function (e) {
+      if(!started) return;
       if (!cube1) {
         cube1 = e.currentTarget;
       } else {
@@ -73,39 +74,42 @@ function setTransform(el) {
   el.style.transform = 'translateZ(' + el.transform.z + 'px) translateY(' + el.transform.y + 'px)';
 }
 
-function destroyCubes() {
-  var bound1 = cube1.getBoundingClientRect()
-  var bound2 = cube2.getBoundingClientRect()
-  blast(bound1.left + bound1.width/2, bound1.top + bound1.height/2, cube1.z);
-  blast(bound2.left + bound2.width/2, bound2.top + bound2.height/2, cube2.z);
-  cube1.transform.y = -100;
-  cube2.transform.y = -100;
-  cube1.classList.add('destroy');
-  cube2.classList.add('destroy');
-  setTransform(cube1);
-  setTransform(cube2);
-  cube1.addEventListener('transitionend', function () {
-    if (!cube1) return;
-    cube1.remove();
-    cube2.remove();
-    cube1 = undefined;
-    cube2 = undefined;
+function destroyCubes(c1, c2) {
+  var bound1 = c1.getBoundingClientRect()
+  var bound2 = c2.getBoundingClientRect()
+  blast(bound1.left + bound1.width/2, bound1.top + bound1.height/2, c1.z);
+  blast(bound2.left + bound2.width/2, bound2.top + bound2.height/2, c2.z);
+  c1.transform.y = -100;
+  c2.transform.y = -100;
+  c1.classList.add('destroy');
+  c2.classList.add('destroy');
+  setTransform(c1);
+  setTransform(c2);
+  c1.addEventListener('transitionend', function () {
+    if (!c1) return;
+    c1.remove();
+    c2.remove();
     if (!space.children.length) {
       started = false;
       ui.classList.add('finish');
+      timer.textContent = 'Finished in ' + timer.textContent + 'seconds';
     }
   });
 }
 function checkMatch() {
   if (cube1.value === cube2.value) {
-    console.log('match found');
-    setTimeout(destroyCubes, 1000);
+    var c1 = cube1, c2 = cube2;
+    cube1 = undefined;
+    cube2 = undefined;
+    setTimeout(function() {
+      destroyCubes(c1, c2)
+    }, 1000);
   } else {
-    console.log('no match');
+    var c1 = cube1, c2 = cube2;
+    cube1 = cube2 = undefined;
     setTimeout(function () {
-      cube1.classList.remove('open');
-      cube2.classList.remove('open');
-      cube1 = cube2 = undefined;
+      c1.classList.remove('open');
+      c2.classList.remove('open');
     }, 1000);
   }
 }
@@ -146,10 +150,10 @@ function loop() {
 function start() {
   started = true;
   ui.classList.add('small');
-  generateCubes();
 }
 loop();
 window.onload = function () {
+  generateCubes();
   // setTimeout(generateCubes, 500);
   setTimeout(function() {
     ui.classList.add('show');

@@ -189,18 +189,27 @@ canvas {
   bottom: 0; }
 
 .ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   text-align: center;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateY(-150vh); }
   .ui.show {
     transform: translateY(0px); }
+  .ui small {
+    transition: 0.25s ease; }
 
 .timer {
-  transform: translateY(-100vh); }
+  transform: translateY(-100vh);
+  transition: 0.3s ease; }
 
 h1 {
   color: white;
   font-size: 17vw;
+  margin-bottom: 20px;
   transition: 0.3s ease 0.1s; }
 
 button {
@@ -220,6 +229,8 @@ button {
   pointer-events: none; }
   .ui.small h1 {
     font-size: 2em; }
+  .ui.small small {
+    opacity: 0; }
   .ui.small .timer {
     transform: translateY(0); }
   .ui.small button {
@@ -229,4 +240,5 @@ button {
   font-size: 4em; }
 
 .ui.finish .timer {
-  font-size: 3em; }
+  font-size: 2em;
+  color: greenyellow; }
