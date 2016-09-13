@@ -3,13 +3,28 @@ $cubeHeight: 100px;
 $cubeDepth: $cubeHeight;
 
 body {
-  color: #333;
+  color: white;
+  font-size: 40px;
   background: cornflowerblue;
   margin: 0;
   overflow: hidden;
   padding: 0px;
   text-align: center;
   font-family: Arial;
+  text-transform: uppercase;
+  font-family: monospace, Helvetica;
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
 canvas {
   position: absolute;
@@ -20,11 +35,11 @@ canvas {
 }
 .space3d {
 	perspective: 1000px;
-	height: 100vh;
+	// height: 100vh;
   position: relative;
-	top: 75vh;
-	left: calc(50vw - 185px);
-	perspective-origin: 150px -150px;
+	top: calc(100vh - 230px);
+	left: calc(50vw - 230px);
+	perspective-origin: 230px -150px;
 }
 
 ._3dbox {
@@ -89,18 +104,52 @@ canvas {
 @include cube(100px);
 @include cube(30px);
 
+// COLORS
+.cube--c1 {
+  .f { background: hsl(45, 100%, 51%); } //yellow
+  > .f--left, > .f--right { background: hsl(45, 100%, 41%); }
+  > .f--front { background: hsl(45, 100%, 31%); }
+}
+.cube--c2 {
+  .f { background: hsl(88, 50%, 53%); } //green
+  > .f--left, > .f--right { background: hsl(88, 50%, 43%); }
+  > .f--front { background: hsl(88, 50%, 33%); }
+}
+.cube--c3 {
+  .f { background: hsl(340, 82%, 52%); } // red
+  > .f--left, > .f--right { background: hsl(340, 82%, 42%); }
+  > .f--front { background: hsl(340, 82%, 32%); }
+}
+.cube--c4 {
+  .f { background: hsl(199, 100%, 64%); } // red
+  > .f--left, > .f--right { background: hsl(199, 100%, 54%); }
+  > .f--front { background: hsl(199, 100%, 44%); }
+}
+.cube--c5 {
+  .f { background: hsl(174, 100%, 29%); } // darkgreen
+  > .f--left, > .f--right { background: hsl(174, 100%, 20%); }
+  > .f--front { background: hsl(174, 100%, 10%) }
+}
+.cube--c6 {
+  .f { background: hsl(300, 100%, 50%); } // darkgreen
+  > .f--left, > .f--right { background: hsl(300, 100%, 40%); }
+  > .f--front { background: hsl(300, 100%, 30%) }
+}
+
 .cube-100px {
   top: 0px;
-	transform: translateY(300px);
 	//animation: go-down 1s cubic-bezier(0.25, 0.1, 0.15, 1.0) forwards;
 	&:hover {
 		top: -7px;
 	}
+  &.destroy {
+    opacity: 0;
+  }
 }
 .cube-30px {
   left: 38%;
-  //opacity: 0;
-  top: 50px;
+  top: 300px;
+  // opacity: 0;
   transition: 0.3s ease 0.1s;
   transform: translateZ(10px) rotateX(10deg) rotateY(120deg) rotateZ(-50deg);
   //animation: rotate 3s cubic-bezier(0.25, 0.1, 0.15, 1.0) infinite;
@@ -127,4 +176,53 @@ canvas {
   z-index: 3;
   left: 0; right: 0;
   top: 0; bottom: 0;
+}
+.ui {
+  // display: flex;
+  text-align: center ;
+  // align-items: center;
+  // flex-direction: column;
+  // height: 100vh;
+  // justify-content: center;
+  transition: all 0.6s cubic-bezier(0.175,0.885,0.320,1.275);
+  transform: translateY(-150vh);
+  &.show {
+    transform: translateY(0px);
+  }
+}
+.timer {
+  transform: translateY(-100vh);
+}
+h1 {
+  color: white;
+  font-size: 17vw;
+  transition: 0.3s ease 0.1s;
+}
+button {
+  outline: 0;
+  border: 2px solid rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.2);
+  color: white;
+  padding: 30px;
+  font-size: 2em;
+  border-radius: 10px;
+  cursor:pointer;
+  transition: 0.25s ease;
+  &:hover {
+    background: rgba(0,0,0,0.4);
+  }
+}
+.ui.small {
+  pointer-events: none;
+  h1 {
+    font-size: 2em;
+  }
+  .timer { transform: translateY(0); }
+  button { transform: translateY(-100vh); }
+}
+.ui.finish {
+  h1 {font-size: 4em;}
+  .timer {
+    font-size: 3em;
+  }
 }
