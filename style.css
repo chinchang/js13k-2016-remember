@@ -149,7 +149,7 @@ canvas {
 .cube-100px {
   top: 0px; }
   .cube-100px:hover {
-    top: -7px; }
+    top: -10px; }
   .cube-100px.destroy {
     opacity: 0; }
 

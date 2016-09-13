@@ -122,10 +122,10 @@ function destroyCubes(c1, c2) {
     if (!c1) return;
     c1.remove();
     c2.remove();
-    if (!space.children.length) {
+    if (!space.children.length && started) {
       started = false;
       ui.classList.add('finish');
-      timer.textContent = 'Finished in ' + timer.textContent + 'seconds';
+      timer.textContent = 'Finished in ' + timer.textContent + ' seconds';
     }
   });
 }
@@ -175,8 +175,8 @@ function loop() {
     c.style.animation = 'none';
   }
   ctx.clearRect(0,0,WW,WH);
-    if (glitchTime <=0 && Math.random() > 0.995) {
-      glitchTime = random(10, 200);
+    if (glitchTime <=0 && Math.random() > 0.999 && WW > 500) {
+      glitchTime = random(10, 100);
       space.style.animation = 'squiggly-anim 0.34s linear infinite';
       c.style.animation = 'squiggly-anim 0.34s linear infinite';
     }
@@ -197,8 +197,8 @@ function start() {
   ui.classList.add('small');
 }
 loop();
-window.onload = function () {
   generateCubes();
+window.onload = function () {
   // setTimeout(generateCubes, 500);
   setTimeout(function() {
     ui.classList.add('show');
