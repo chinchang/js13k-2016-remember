@@ -154,6 +154,7 @@ canvas {
     opacity: 0; }
 
 .cube-30px {
+  pointer-events: none;
   left: 38%;
   top: 300px;
   transition: 0.3s ease 0.1s;

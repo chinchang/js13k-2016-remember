@@ -147,12 +147,11 @@ canvas {
   }
 }
 .cube-30px {
+  pointer-events: none;
   left: 38%;
   top: 300px;
-  // opacity: 0;
   transition: 0.3s ease 0.1s;
   transform: translateZ(10px) rotateX(10deg) rotateY(120deg) rotateZ(-50deg);
-  //animation: rotate 3s cubic-bezier(0.25, 0.1, 0.15, 1.0) infinite;
 }
 .cube-100px.open .cube-30px {
   top: -60px;
